@@ -1,0 +1,31 @@
+Installation:
+You need Gin framework that can be downloaded from https://gin-gonic.com/.
+
+To start the server:
+Execute the following command in the terminal: go run driver.go
+The server will start listening on port 8080.
+
+To send requests to the server:
+For min:
+curl 0:8080/max -X POST -d '{"numbers":[12, 13], "count": 1}'
+
+For max:
+curl 0:8080/max -X POST -d '{"numbers":[12, 13], "count": 2}'
+
+For average:
+curl 0:8080/avg -X POST -d '{"numbers":[1, 5, 3]}'
+
+For median:
+curl 0:8080/median -X POST -d '{"numbers":[12, 13, 15]}'
+
+For percentile:
+curl 0:8080/percentile -X POST -d '{"numbers":[15, 20, 35, 40, 50], "percentile": 50}'
+
+
+Considerations:
+I took some steps to avoid number overflows, e.g., in the average calculation. However, I did not do extensive tests to ensure that there would be no number overflow bugs.
+
+Min & Max funcallsctions would return a 400 error and a message, if the count value exceeds the number of numbers in the input array.
+
+Algorithms:
+I did not put effort into optimizing the algorithms for time. For simplicity, all the implementations use a sort function to sort the numbers.
